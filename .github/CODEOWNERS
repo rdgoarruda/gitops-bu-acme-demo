@@ -1,0 +1,14 @@
+# -------------------------------------------------------
+# CODEOWNERS — gitops-bu-acme-demo
+# Apenas o owner pode aprovar PRs para a branch main.
+# Requer branch protection rule com "Require CODEOWNERS review".
+# -------------------------------------------------------
+
+# Catch-all: todo arquivo exige aprovação do owner
+*                            @SEU_USUARIO
+
+# Homologação
+ho/**                        @SEU_USUARIO
+
+# Produção — controle restrito
+pr/**                        @SEU_USUARIO

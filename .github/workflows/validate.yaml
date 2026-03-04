@@ -1,0 +1,39 @@
+name: Validate Kustomize Builds
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'ho/**'
+      - 'pr/**'
+
+jobs:
+  kustomize-build:
+    name: kustomize build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install kubectl (com kustomize embutido)
+        uses: azure/setup-kubectl@v4
+        with:
+          version: 'v1.32.0'
+
+      - name: Build — ho/tools/*
+        run: |
+          for dir in ho/tools/*/; do
+            # Ignora diretórios sem kustomization.yaml
+            [ -f "$dir/kustomization.yaml" ] || continue
+            echo "→ kustomize build $dir"
+            kubectl kustomize "$dir" > /dev/null
+          done
+
+      - name: Build — pr/tools/*
+        run: |
+          for dir in pr/tools/*/; do
+            [ -f "$dir/kustomization.yaml" ] || continue
+            echo "→ kustomize build $dir"
+            kubectl kustomize "$dir" > /dev/null
+          done

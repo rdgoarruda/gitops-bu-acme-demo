@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sample-app
+  namespace: bu-acme-workloads
+  labels:
+    app: sample-app
+    bu: bu-acme
+spec:
+  selector:
+    app: sample-app
+  ports:
+    - port: 80
+      targetPort: 80

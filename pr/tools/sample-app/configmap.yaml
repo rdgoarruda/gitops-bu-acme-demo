@@ -1,0 +1,36 @@
+# app-html: conteúdo HTML montado como arquivo em /usr/share/nginx/html
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-html
+  namespace: bu-acme-workloads
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="UTF-8">
+      <title>BU ACME | Produção</title>
+    </head>
+    <body style="font-family:sans-serif; background:#0d1117; color:#e0e0e0; display:flex; justify-content:center; align-items:center; height:100vh; margin:0;">
+      <div style="text-align:center; padding:40px; border:2px solid #238636; border-radius:12px; background:#161b22;">
+        <h1 style="color:#3fb950;">🏢 Business Unit ACME</h1>
+        <p style="font-size:1.2em;">Ambiente: <strong style="color:#3fb950;">Produção</strong></p>
+        <p>Cluster: <strong>bu-acme-pr</strong></p>
+        <p style="color:#8b949e;">Gerenciado via GitOps + ArgoCD + OCM</p>
+        <hr style="border-color:#238636; margin:20px 0;">
+        <p style="font-size:0.9em; color:#6e7681;">v1.0.0 · Deploy automático via ArgoCD</p>
+      </div>
+    </body>
+    </html>
+---
+# app-config: variáveis de ambiente injetadas via envFrom
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  namespace: bu-acme-workloads
+data:
+  BU_NAME: "Business Unit ACME"
+  ENVIRONMENT: "producao"
+  CLUSTER: "bu-acme-pr"
