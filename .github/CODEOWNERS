@@ -5,10 +5,10 @@
 # -------------------------------------------------------
 
 # Catch-all: todo arquivo exige aprovação do owner
-*                            @SEU_USUARIO
+*                            @rdgoarruda
 
 # Homologação
-ho/**                        @SEU_USUARIO
+ho/**                        @rdgoarruda
 
 # Produção — controle restrito
-pr/**                        @SEU_USUARIO
+pr/**                        @rdgoarruda
