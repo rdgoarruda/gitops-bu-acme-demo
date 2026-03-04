@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# ── Autoscaling — escolha da BU-ACME ──────────────────────────────────────
+#
+# BU-ACME optou por KEDA (Kubernetes Event-Driven Autoscaler).
+# Permite escalar o sample-app baseado em métricas do Datadog
+# (ex: taxa de requisições, tamanho de fila, latência p99).
+#
+# Outras BUs poderiam usar:
+#   - HPA padrão (baseado só em CPU/mem)
+#   - VPA (ajuste vertical automático)
+#   - Não usar autoscaler (réplicas fixas)
+
+resources:
+  - scaledobject.yaml

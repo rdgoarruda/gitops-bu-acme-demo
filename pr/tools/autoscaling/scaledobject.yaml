@@ -1,0 +1,20 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: sample-app-scaler
+  namespace: bu-acme-workloads
+spec:
+  scaleTargetRef:
+    name: sample-app
+
+  minReplicaCount: 2               # PR nunca fica em 0 réplicas (disponibilidade)
+  maxReplicaCount: 20              # Teto mais alto para produção
+
+  triggers:
+    - type: datadog
+      metadata:
+        query: "avg(last_5m):avg:nginx.net.request_per_s{bu:bu-acme}"
+        queryValue: "50"
+        type: "global"
+      authenticationRef:
+        name: datadog-trigger-auth

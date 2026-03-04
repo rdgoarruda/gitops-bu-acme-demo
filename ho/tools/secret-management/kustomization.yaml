@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# ── Gestão de Secrets — escolha da BU-ACME ────────────────────────────────
+#
+# BU-ACME usa Sealed Secrets (Bitnami):
+#   - O operador roda no cluster (instalado via bootstrap global)
+#   - A BU encripta seus secrets com a chave pública do cluster
+#   - O arquivo encriptado (SealedSecret) é seguro para commitar no git
+#   - Ao aplicar, o operador decripta e cria o Secret nativo do K8s
+#
+# Outras BUs poderiam usar:
+#   - External Secrets Operator + HashiCorp Vault
+#   - External Secrets Operator + AWS Secrets Manager
+#   - External Secrets Operator + Azure Key Vault
+
+resources:
+  - sealed-datadog-credentials.yaml

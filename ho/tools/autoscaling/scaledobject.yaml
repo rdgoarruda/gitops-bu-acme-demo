@@ -1,0 +1,30 @@
+# KEDA ScaledObject — escala o sample-app baseado em métrica do Datadog
+#
+# Como BU-ACME já usa Datadog para observability, faz sentido usar
+# o Datadog Scaler do KEDA: a mesma métrica observada no dashboard
+# é a que dispara o autoscaling.
+#
+# Exemplo: se avg(last_5m):avg:nginx.net.request_per_s{bu:bu-acme} > 50
+# → sobe de 1 para até 5 réplicas automaticamente.
+
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: sample-app-scaler
+  namespace: bu-acme-workloads
+spec:
+  scaleTargetRef:
+    name: sample-app               # Deployment alvo (já existe em sample-app/)
+
+  minReplicaCount: 1               # Nunca abaixo de 1 réplica (HO pode ser 0 em PR)
+  maxReplicaCount: 5               # Teto de custo para HO
+
+  triggers:
+    - type: datadog
+      metadata:
+        # Métrica do Datadog que controla o scaling
+        query: "avg(last_5m):avg:nginx.net.request_per_s{bu:bu-acme}"
+        queryValue: "50"           # threshold: >50 req/s → scale up
+        type: "global"
+      authenticationRef:
+        name: datadog-trigger-auth  # credenciais da API do Datadog

@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: datadog-agent
+  namespace: bu-acme-workloads
+spec:
+  selector:
+    matchLabels:
+      app: datadog-agent
+  template:
+    metadata:
+      labels:
+        app: datadog-agent
+    spec:
+      containers:
+        - name: agent
+          image: gcr.io/datadoghq/agent:7
+          env:
+            - name: DD_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: datadog-credentials
+                  key: api-key
+            - name: DD_ENV
+              value: "pr"                   # PR = produção → ambiente separado nos dashboards
+            - name: DD_TAGS
+              value: "bu:bu-acme env:pr"
+          resources:
+            # PR tem limites maiores — produção precisa de mais headroom
+            requests:
+              cpu: 150m
+              memory: 192Mi
+            limits:
+              cpu: 500m
+              memory: 384Mi

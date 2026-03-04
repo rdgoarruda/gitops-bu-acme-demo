@@ -1,0 +1,43 @@
+# Datadog Agent — escolha de observability da BU-ACME
+#
+# DaemonSet: roda um pod em cada node do cluster.
+# Coleta métricas, logs e traces de todos os containers da BU.
+#
+# ⚠️  BU-Y com Dynatrace teria aqui um OneAgent Operator no lugar deste DaemonSet.
+#     A estrutura do repositório é idêntica — só o manifesto muda.
+
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: datadog-agent
+  namespace: bu-acme-workloads
+spec:
+  selector:
+    matchLabels:
+      app: datadog-agent
+  template:
+    metadata:
+      labels:
+        app: datadog-agent
+    spec:
+      containers:
+        - name: agent
+          image: gcr.io/datadoghq/agent:7
+          env:
+            - name: DD_API_KEY
+              # Nunca em plain text — referencia um SealedSecret (ver secret-management/)
+              valueFrom:
+                secretKeyRef:
+                  name: datadog-credentials
+                  key: api-key
+            - name: DD_ENV
+              value: "ho"                   # HO = homologação → separa nos dashboards
+            - name: DD_TAGS
+              value: "bu:bu-acme env:ho"
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 250m
+              memory: 256Mi
