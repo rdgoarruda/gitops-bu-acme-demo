@@ -3,12 +3,7 @@
 Repositório GitOps da **Business Unit ACME** — contém ferramentas e aplicações específicas da BU,
 gerenciadas via ArgoCD pelo hub `gerencia-ho` (homologação) e `gerencia-pr` (produção).
 
-Faz parte da estratégia de [3 repositórios GitOps](https://github.com/rdgoarruda/gitops-global-demo/blob/main/docs/ADR-001-three-repo-gitops-strategy.md).
-
-> ⚠️ **Importante:** Substitua `rdgoarruda` nos arquivos YAML pelo seu usuário/organização GitHub.
-
 ---
-
 ## Como Funciona
 
 As ferramentas desta BU são **auto-descobertas** pelo `gitops-global-demo` através de um
