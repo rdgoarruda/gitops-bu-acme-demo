@@ -10,14 +10,14 @@ data:
     <html>
     <head>
       <meta charset="UTF-8">
-      <title>BU ACME | Homologação</title>
+      <title>BU ACME | Homologação | LABORATORIO TESTE </title>
     </head>
     <body style="font-family:sans-serif; background:#1a1a2e; color:#e0e0e0; display:flex; justify-content:center; align-items:center; height:100vh; margin:0;">
       <div style="text-align:center; padding:40px; border:2px solid #0f3460; border-radius:12px; background:#16213e;">
-        <h1 style="color:#e94560;">🏢 Business Unit ACME</h1>
+        <h1 style="color:#e94560;">🏢 Business Unit ACME LABORATORIO TESTE </h1>
         <p style="font-size:1.2em;">Ambiente: <strong>Homologação</strong></p>
         <p>Cluster: <strong>bu-acme-ho</strong></p>
-        <p style="color:#a0a0c0;">Gerenciado via GitOps + ArgoCD + OCM</p>
+        <p style="color:#a0a0c0;">Gerenciado via GitOps + ArgoCD + OCM | LABORATORIO TESTE</p>
         <hr style="border-color:#0f3460; margin:20px 0;">
         <p style="font-size:0.9em; color:#888;">v1.0.0 · Deploy automático via ArgoCD</p>
       </div>
